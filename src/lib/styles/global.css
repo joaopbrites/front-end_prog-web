@@ -1,0 +1,322 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: var(--fonte-base);
+	font-size: var(--tamanho-base);
+	line-height: var(--linha-base);
+	color: var(--cor-texto);
+	background: var(--cor-fundo);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	line-height: 1.2;
+	margin: 0 0 var(--espaco-3);
+}
+
+a {
+	color: var(--cor-secundaria);
+}
+
+a:hover {
+	color: var(--cor-secundaria-escura);
+}
+
+/* Foco sempre visível — WCAG 2.4.7 */
+:focus-visible {
+	outline: 3px solid var(--cor-foco);
+	outline-offset: 2px;
+}
+
+/* Link "pular para o conteúdo" — visível só ao receber foco */
+.skip-link {
+	position: absolute;
+	left: var(--espaco-2);
+	top: -200px;
+	z-index: 1000;
+	background: var(--cor-primaria-escura);
+	color: #fff;
+	padding: var(--espaco-2) var(--espaco-3);
+	border-radius: var(--raio);
+	transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+	top: var(--espaco-2);
+}
+
+/* Contêiner de largura limitada e centralizado */
+.conteudo {
+	width: 100%;
+	max-width: var(--largura-conteudo);
+	margin-inline: auto;
+	padding: var(--espaco-4) var(--espaco-3);
+}
+
+/* Remove o contorno do <main> ao receber foco programático via skip link */
+main:focus {
+	outline: none;
+}
+
+/* Transição suave ao alternar tema (respeitando reduced-motion abaixo) */
+body {
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+/* Alternância de logo conforme o tema (sem JS, via atributo data-tema) */
+.logo {
+	height: 48px;
+	width: auto;
+	display: block;
+}
+
+.logo--escuro {
+	display: none;
+}
+
+:root[data-tema='dark'] .logo--claro {
+	display: none;
+}
+
+:root[data-tema='dark'] .logo--escuro {
+	display: block;
+}
+
+/* Conteúdo só para leitores de tela (visualmente oculto, acessível) */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Tabelas de dados acessíveis */
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+caption {
+	text-align: left;
+	color: var(--cor-texto-suave);
+	padding-block: var(--espaco-2);
+}
+
+th,
+td {
+	text-align: left;
+	padding: var(--espaco-2) var(--espaco-3);
+	border-bottom: 1px solid var(--cor-borda);
+}
+
+thead th {
+	border-bottom: 2px solid var(--cor-borda);
+}
+
+tbody tr:hover {
+	background: var(--cor-superficie);
+}
+
+/* Mensagens de estado (carregando / vazio / erro) */
+.estado {
+	padding: var(--espaco-4);
+	color: var(--cor-texto-suave);
+}
+
+.estado--erro {
+	color: var(--status-reprovado);
+	font-weight: 600;
+}
+
+/* Formulário de busca (compartilhado entre as listagens) */
+.busca {
+	margin-bottom: var(--espaco-4);
+}
+
+.busca label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: var(--espaco-2);
+}
+
+.busca__campo {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--espaco-2);
+}
+
+.busca input {
+	flex: 1 1 18rem;
+	padding: var(--espaco-2) var(--espaco-3);
+	font: inherit;
+	color: var(--cor-texto);
+	background: var(--cor-fundo);
+	border: 1px solid var(--cor-borda);
+	border-radius: var(--raio);
+}
+
+.busca button {
+	padding: var(--espaco-2) var(--espaco-4);
+	font: inherit;
+	font-weight: 600;
+	color: #fff;
+	background: var(--cor-primaria-escura);
+	border: 1px solid transparent;
+	border-radius: var(--raio);
+	cursor: pointer;
+}
+
+.busca button:hover {
+	background: var(--cor-primaria);
+}
+
+/* Link com aparência de botão de ação */
+.botao-acao {
+	display: inline-block;
+	padding: var(--espaco-2) var(--espaco-4);
+	font-weight: 600;
+	color: #fff;
+	background: var(--cor-primaria-escura);
+	border-radius: var(--raio);
+	text-decoration: none;
+}
+
+.botao-acao:hover {
+	background: var(--cor-primaria);
+	color: #fff;
+}
+
+/* Cabeçalho de página: título + ação à direita */
+.topo {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--espaco-3);
+}
+
+/* Campos de formulário (compartilhados) */
+.campo {
+	margin-bottom: var(--espaco-3);
+}
+
+.campo label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: var(--espaco-1);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+	width: 100%;
+	padding: var(--espaco-2) var(--espaco-3);
+	font: inherit;
+	color: var(--cor-texto);
+	background: var(--cor-fundo);
+	border: 1px solid var(--cor-borda);
+	border-radius: var(--raio);
+}
+
+.campo textarea {
+	min-height: 6rem;
+	resize: vertical;
+}
+
+.campo input[aria-invalid='true'],
+.campo select[aria-invalid='true'],
+.campo textarea[aria-invalid='true'] {
+	border-color: var(--status-reprovado);
+}
+
+.erro-campo {
+	margin: var(--espaco-1) 0 0;
+	color: var(--status-reprovado);
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.obrigatorio {
+	color: var(--status-reprovado);
+}
+
+fieldset {
+	margin: 0 0 var(--espaco-4);
+	padding: var(--espaco-3) var(--espaco-4);
+	border: 1px solid var(--cor-borda);
+	border-radius: var(--raio);
+}
+
+legend {
+	padding: 0 var(--espaco-2);
+	font-weight: 700;
+}
+
+/* Botão de ação destrutiva */
+.botao-perigo {
+	padding: var(--espaco-1) var(--espaco-3);
+	font: inherit;
+	color: var(--status-reprovado);
+	background: transparent;
+	border: 1px solid var(--status-reprovado);
+	border-radius: var(--raio);
+	cursor: pointer;
+}
+
+.botao-perigo:hover {
+	color: #fff;
+	background: var(--status-reprovado);
+}
+
+/* Permite rolagem horizontal de tabelas largas em telas pequenas */
+.tabela-scroll {
+	overflow-x: auto;
+}
+
+/* Cabeçalho de coluna clicável para ordenação */
+th button.ordenavel {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--espaco-1);
+	padding: 0;
+	font: inherit;
+	font-weight: 700;
+	color: inherit;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+th button.ordenavel:hover {
+	color: var(--cor-secundaria);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

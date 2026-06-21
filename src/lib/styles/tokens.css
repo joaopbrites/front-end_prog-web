@@ -1,0 +1,83 @@
+/**
+ * Design tokens — híbrido diretrizes gov.br + identidade UFLA.
+ * Cores institucionais extraídas do logo oficial (Manual de Identidade Visual da UFLA).
+ */
+:root {
+	/* ===== Tema claro (padrão) ===== */
+	color-scheme: light;
+
+	/* Verde UFLA */
+	--cor-primaria: #009551;
+	--cor-primaria-escura: #00733f; /* acessível p/ texto/botão sobre branco (>= 4.5:1) */
+	--cor-primaria-clara: #e6f4ec;
+
+	/* Azul UFLA — apoio/links */
+	--cor-secundaria: #006199;
+	--cor-secundaria-escura: #004b78;
+
+	/* Neutros */
+	--cor-texto: #1c1c1c;
+	--cor-texto-suave: #555a60;
+	--cor-fundo: #ffffff;
+	--cor-superficie: #f3f5f7;
+	--cor-borda: #cdd4da;
+
+	/* Cabeçalho — fundo branco com logo colorido (conforme manual) */
+	--cor-cabecalho-fundo: #ffffff;
+	--cor-cabecalho-texto: #1c1c1c;
+
+	/* Anel de foco (alto contraste sobre fundo claro) */
+	--cor-foco: #1351b4;
+
+	/* Status do TCC */
+	--status-elaboracao: #6c757d;
+	--status-enviado: #006199;
+	--status-aprovado: #168821;
+	--status-reprovado: #d4351c;
+
+	/* Tipografia */
+	--fonte-base: 'Rawline', 'Inter', system-ui, -apple-system, sans-serif;
+	--tamanho-base: 1rem;
+	--linha-base: 1.5;
+
+	/* Espaçamento */
+	--espaco-1: 0.25rem;
+	--espaco-2: 0.5rem;
+	--espaco-3: 1rem;
+	--espaco-4: 1.5rem;
+	--espaco-5: 2rem;
+	--espaco-6: 3rem;
+
+	/* Layout */
+	--raio: 4px;
+	--largura-conteudo: 75rem;
+	--sombra: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-tema='dark'] {
+	/* ===== Tema escuro ===== */
+	color-scheme: dark;
+
+	--cor-primaria: #2bb673;
+	--cor-primaria-escura: #1f9c60;
+	--cor-primaria-clara: #14352a;
+
+	--cor-secundaria: #5aa9d6;
+	--cor-secundaria-escura: #8cc4e5;
+
+	--cor-texto: #e8eaed;
+	--cor-texto-suave: #aab2bd;
+	--cor-fundo: #14171a;
+	--cor-superficie: #1e2329;
+	--cor-borda: #39414a;
+
+	--cor-cabecalho-fundo: #0f1316;
+	--cor-cabecalho-texto: #e8eaed;
+
+	--cor-foco: #ffcd07;
+
+	--status-elaboracao: #aab2bd;
+	--status-enviado: #5aa9d6;
+	--status-aprovado: #3ec46d;
+	--status-reprovado: #f1735f;
+}
