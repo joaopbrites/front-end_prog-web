@@ -38,7 +38,7 @@
 	/* Tipografia */
 	--fonte-base: 'Rawline', 'Inter', system-ui, -apple-system, sans-serif;
 	--tamanho-base: 1rem;
-	--linha-base: 1.5;
+	--linha-base: 1.6;
 
 	/* Espaçamento */
 	--espaco-1: 0.25rem;
@@ -49,7 +49,7 @@
 	--espaco-6: 3rem;
 
 	/* Layout */
-	--raio: 4px;
+	--raio: 6px;
 	--largura-conteudo: 75rem;
 	--sombra: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
