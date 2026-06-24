@@ -33,6 +33,7 @@ a {
 
 a:hover {
 	color: var(--cor-secundaria-escura);
+	text-decoration: underline; /* MODIFICAÇÃO: Melhora a acessibilidade visual ao passar o mouse */
 }
 
 /* Foco sempre visível — WCAG 2.4.7 */
@@ -280,7 +281,6 @@ legend {
 	background: transparent;
 	border: 1px solid var(--status-reprovado);
 	border-radius: var(--raio);
-	cursor: pointer;
 }
 
 .botao-perigo:hover {
