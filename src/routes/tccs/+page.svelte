@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import {
 		listarTccs,
@@ -71,7 +72,7 @@
 		if (novoSearch.trim()) partes.push(`search=${encodeURIComponent(novoSearch.trim())}`);
 		if (novoStatus) partes.push(`status=${encodeURIComponent(novoStatus)}`);
 		const query = partes.length ? `?${partes.join('&')}` : '';
-		goto(`/tccs${query}`, { keepFocus: true, noScroll: true });
+		goto(`${base}/tccs${query}`, { keepFocus: true, noScroll: true });
 	}
 
 	function aoBuscar(evento: SubmitEvent) {
@@ -149,7 +150,7 @@
 
 <div class="topo">
 	<h1>Trabalhos de Conclusão de Curso</h1>
-	<a class="botao-acao" href="/tccs/novo">Cadastrar TCC</a>
+	<a class="botao-acao" href="{base}/tccs/novo">Cadastrar TCC</a>
 </div>
 
 <div class="filtros">

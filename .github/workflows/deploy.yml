@@ -1,0 +1,58 @@
+name: Deploy no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Garante apenas um deploy por vez, sem cancelar um já em andamento.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build estático (adapter-static)
+        run: npm run build
+        env:
+          # Gera o site estático em vez do build adapter-node.
+          ADAPTER: static
+          # Base path = "/" + nome do repositório (o site fica em /<repo>/).
+          BASE_PATH: /front-end_prog-web
+          # URL da API no Render. AJUSTE para o seu serviço (mantenha o /api no final).
+          VITE_API_BASE_URL: https://gestao-tccs-api.onrender.com/api
+
+      - name: Empacotar artefato do Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

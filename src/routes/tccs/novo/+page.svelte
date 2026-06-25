@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { listarAlunos, listarProfessores, criarTcc } from '$lib/api/endpoints';
 	import { ApiError } from '$lib/api/client';
 	import type { Aluno, Professor } from '$lib/api/types';
@@ -88,7 +89,7 @@
 		enviando = true;
 		try {
 			await criarTcc(montarFormDataTcc(valores, arquivo));
-			await goto('/tccs');
+			await goto(`${base}/tccs`);
 		} catch (e) {
 			if (e instanceof ApiError) {
 				aplicarErrosApi(e.body);
@@ -269,7 +270,7 @@
 			<button type="submit" class="botao-enviar" disabled={enviando}>
 				{enviando ? 'Cadastrando…' : 'Cadastrar TCC'}
 			</button>
-			<a href="/tccs">Cancelar</a>
+			<a href="{base}/tccs">Cancelar</a>
 		</div>
 	</form>
 {/if}

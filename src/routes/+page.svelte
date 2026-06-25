@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { base } from '$app/paths';
+</script>
+
 <svelte:head>
 	<title>Início — Gestão de TCCs UFLA</title>
 </svelte:head>
@@ -14,19 +18,19 @@
 	<h2 id="atalhos-titulo">Atalhos</h2>
 	<ul class="atalhos">
 		<li>
-			<a href="/tccs">
+			<a href="{base}/tccs">
 				<strong>Ver TCCs</strong>
 				<span>Listagem, busca, alteração de status e exclusão.</span>
 			</a>
 		</li>
 		<li>
-			<a href="/tccs/novo">
+			<a href="{base}/tccs/novo">
 				<strong>Cadastrar TCC</strong>
 				<span>Registre um novo trabalho, com upload opcional do PDF.</span>
 			</a>
 		</li>
 		<li>
-			<a href="/dashboard">
+			<a href="{base}/dashboard">
 				<strong>Dashboard</strong>
 				<span>Estatísticas e gráficos sobre os TCCs cadastrados.</span>
 			</a>
@@ -37,7 +41,7 @@
 <section aria-labelledby="comousar-titulo">
 	<h2 id="comousar-titulo">Como cadastrar um TCC</h2>
 	<ol class="passos">
-		<li>Acesse <a href="/tccs/novo">Cadastrar TCC</a>.</li>
+		<li>Acesse <a href="{base}/tccs/novo">Cadastrar TCC</a>.</li>
 		<li>Preencha os dados do trabalho: título, resumo, palavras-chave, tipo e idioma.</li>
 		<li>Selecione o aluno, o orientador e os três membros da banca.</li>
 		<li>Opcionalmente, anexe o PDF (até 10 MB) e informe o semestre de defesa.</li>

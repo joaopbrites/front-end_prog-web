@@ -4,6 +4,7 @@
 	import logoColorida from '$lib/assets/ufla-logo-colorida.png';
 	import logoNegativa from '$lib/assets/ufla-logo-negativa.png';
 	import { page } from '$app/state';
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import { estadoTema } from '$lib/theme.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
@@ -25,12 +26,17 @@
 		{ href: '/dashboard', rotulo: 'Dashboard' }
 	];
 
+	// page.url.pathname inclui o base path; removemos a base para as comparações
+	// e para montar as migalhas (que trabalham com caminhos relativos à app).
+	const caminhoAtual = $derived(page.url.pathname.slice(base.length) || '/');
+
 	function ativo(href: string): boolean {
-		const atual = page.url.pathname;
-		return href === '/' ? atual === '/' : atual === href || atual.startsWith(href + '/');
+		return href === '/'
+			? caminhoAtual === '/'
+			: caminhoAtual === href || caminhoAtual.startsWith(href + '/');
 	}
 
-	const migalhas = $derived(construirMigalhas(page.url.pathname));
+	const migalhas = $derived(construirMigalhas(caminhoAtual));
 </script>
 
 <svelte:head>
@@ -41,7 +47,7 @@
 
 <header class="cabecalho">
 	<div class="conteudo cabecalho__inner">
-		<a class="marca" href="/">
+		<a class="marca" href="{base}/">
 			<img
 				class="logo logo--claro"
 				src={logoColorida}
@@ -60,7 +66,7 @@
 				<ul class="nav">
 					{#each links as { href, rotulo } (href)}
 						<li>
-							<a {href} aria-current={ativo(href) ? 'page' : undefined}>{rotulo}</a>
+							<a href={base + href} aria-current={ativo(href) ? 'page' : undefined}>{rotulo}</a>
 						</li>
 					{/each}
 				</ul>
@@ -79,7 +85,7 @@
 						{#if migalha.atual}
 							<span aria-current="page">{migalha.rotulo}</span>
 						{:else}
-							<a href={migalha.href}>{migalha.rotulo}</a>
+							<a href={base + migalha.href}>{migalha.rotulo}</a>
 						{/if}
 					</li>
 				{/each}

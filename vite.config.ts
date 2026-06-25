@@ -1,7 +1,16 @@
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
-import adapter from '@sveltejs/adapter-node';
+import adapterNode from '@sveltejs/adapter-node';
+import adapterStatic from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
+
+// Alvo do build:
+//   - padrão            → adapter-node  (dev local, Docker/compose, testes E2E)
+//   - ADAPTER=static    → site estático (deploy no GitHub Pages, feito pelo CI)
+const usarStatic = process.env.ADAPTER === 'static';
+
+// O `base` do SvelteKit precisa ser '' ou começar com '/'.
+const basePath = (process.env.BASE_PATH ?? '') as '' | `/${string}`;
 
 export default defineConfig({
 	plugins: [
@@ -12,10 +21,18 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 
-			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-			adapter: adapter()
+			// adapter-node serve a app (SSR) em dev/Docker; adapter-static gera
+			// HTML pré-renderizado + fallback SPA (404.html) para o GitHub Pages.
+			adapter: usarStatic ? adapterStatic({ fallback: '404.html' }) : adapterNode(),
+
+			// No GitHub Pages o site fica em https://<user>.github.io/<repo>/ → base path.
+			// Em dev/Docker BASE_PATH não é definido, então a base é a raiz ('').
+			// relative: false → assets referenciados com caminho absoluto + base,
+			// resolvendo sempre certo no Pages (inclusive em URLs com barra final).
+			paths: { base: basePath, relative: false },
+
+			// Não derruba o build por link externo (ex.: API) durante a pré-renderização.
+			prerender: { handleHttpError: 'warn' }
 		})
 	],
 	test: {
